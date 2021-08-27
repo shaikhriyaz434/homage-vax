@@ -5,7 +5,7 @@ export class CreateLeaveDto {
   @ApiProperty({ type: 'string', description: 'remark' })
   remark: string;
   @ApiProperty({ type: 'string', description: 'staff id' })
-  staffId: string;
+  staff: string;
   @ApiProperty({ type: 'string', description: 'status' })
   status: string;
   @ApiProperty({ type: () => Duration, description: 'duration' })

@@ -1,35 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Leave } from '../../db/entities/leave.entity';
-import { Repository } from 'typeorm';
+import { Leave, LeaveDocument } from '../../db/entities/leave.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateLeaveDto } from './dto/create-leave.dto';
 import { UpdateLeaveDto } from './dto/update-leave.dto';
 
 @Injectable()
 export class LeaveService {
   constructor(
-    @InjectRepository(Leave)
-    private readonly repo: Repository<Leave>,
+    @InjectModel(Leave.name)
+    private readonly model: Model<LeaveDocument>,
   ) {}
   async create(input: CreateLeaveDto) {
-    const result = await this.repo.save(input);
-    return result;
+    const newDoc = new this.model(input);
+    return newDoc.save();
   }
 
   findAll() {
-    return this.repo.find();
+    return this.model.find().exec();
   }
 
   findOne(id: string) {
-    return this.repo.findOne(id);
+    return this.model.findById(id).exec();
   }
 
   update(id: string, input: UpdateLeaveDto) {
-    this.repo.update({ _id: id }, input);
-    return;
+    return this.model.findByIdAndUpdate(id, input).exec();
   }
 
   remove(id: string) {
-    return this.repo.delete({ _id: id });
+    return this.model.remove({ id }).exec();
   }
 }

@@ -1,33 +1,34 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as mSchema } from 'mongoose';
 import { Address } from '../models/address';
 import { BaseEntity } from '../models/base';
+import { v4 as uuidv4 } from 'uuid';
 import { OperatingHours } from '../models/operating-hours';
-import { Slot } from './slot.entity';
 import { Staff } from './staff.entity';
-
-@Entity()
+@Schema()
 export class Clinic extends BaseEntity {
-  @Column({ type: 'varchar', length: 300 })
+  @Prop()
   name: string;
 
-  @Column({ type: 'varchar', length: 100 })
+  @Prop()
   city: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Prop()
   pincode: string;
 
-  @Column({ type: 'json', nullable: true })
+  @Prop()
   address: Address;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Prop()
   contact: string;
 
-  @Column({ type: 'json', nullable: true })
+  @Prop()
   operatingHours: OperatingHours;
 
-  @OneToMany((type) => Staff, (staff) => staff.clinic)
-  staffs: Staff[];
-
-  @OneToMany((type) => Staff, (slot) => slot.clinic)
-  slots: Slot[];
+  @Prop({ type: [{ type: 'String', ref: 'Staff' }] })
+  staff: Staff[];
 }
+
+export type ClinicDocument = Clinic & Document;
+
+export const ClinicSchema = SchemaFactory.createForClass(Clinic);

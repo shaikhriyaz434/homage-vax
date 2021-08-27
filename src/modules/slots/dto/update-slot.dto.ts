@@ -5,11 +5,11 @@ import { CreateSlotDto } from './create-slot.dto';
 
 export class UpdateSlotDto {
   @ApiPropertyOptional({ type: 'string', description: 'Person id' })
-  personId?: string;
+  person?: string;
   @ApiPropertyOptional({ type: 'string', description: 'status' })
   status?: string;
   @ApiPropertyOptional({ type: () => Duration, description: 'duration' })
   duration?: Duration;
   @ApiPropertyOptional({ type: 'string', description: 'clinic id' })
-  clinicId?: string;
+  clinic?: any;
 }

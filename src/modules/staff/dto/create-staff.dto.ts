@@ -18,5 +18,5 @@ export class CreateStaffDto {
   contact: string;
 
   @ApiProperty({ type: 'string', description: 'clinic id' })
-  clinicId: string;
+  clinic: string;
 }

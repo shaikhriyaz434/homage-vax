@@ -1,25 +1,26 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Address } from '../models/address';
 import { BaseEntity } from '../models/base';
 import { Slot } from './slot.entity';
+import { Document } from 'mongoose';
 
-@Entity()
+@Schema()
 export class Person extends BaseEntity {
-  @Column({ type: 'varchar', length: 300 })
+  @Prop()
   name: string;
-
-  @Column({ type: 'varchar', length: 100 })
+  @Prop()
   city: string;
-
-  @Column({ type: 'varchar', length: 50 })
+  @Prop()
   pincode: string;
-
-  @Column({ type: 'json', nullable: true })
+  @Prop()
   address: Address;
-
-  @Column({ type: 'varchar', length: 50, unique: true })
+  @Prop()
   contact: string;
-
-  @OneToMany((type) => Slot, (slot) => slot.person)
+  @Prop({ type: [{ type: 'String', ref: 'Slot' }] })
   slots: Slot[];
 }
+
+export type PersonDocument = Person & Document;
+
+export const PersonSchema = SchemaFactory.createForClass(Person);

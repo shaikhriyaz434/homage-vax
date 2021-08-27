@@ -1,19 +1,20 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Address } from '../models/address';
 import { BaseEntity } from '../models/base';
 import { Clinic } from './clinic.entity';
 import { Leave } from './leave.entity';
 import { Person } from './person.entity';
+import { Document } from 'mongoose';
 
-@Entity()
+@Schema()
 export class Staff extends Person {
-  @Column({ type: 'string', name: 'clinic_id', nullable: true })
-  clinicId: string;
-
-  @OneToMany((type) => Leave, (leave) => leave.staff)
+  @Prop({ type: [{ type: 'String', ref: 'Leave' }] })
   leaves: Leave[];
-
-  @ManyToOne((type) => Clinic, (clinic) => clinic.staffs)
-  @JoinColumn({ name: 'clinic_id' })
-  clinic: Clinic | null;
+  @Prop({ type: 'String', ref: 'Clinic' })
+  clinic: Clinic;
 }
+
+export type StaffDocument = Staff & Document;
+
+export const StaffSchema = SchemaFactory.createForClass(Staff);

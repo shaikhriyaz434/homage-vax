@@ -1,35 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Staff } from 'src/db/entities/staff.entity';
-import { Repository } from 'typeorm';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Staff, StaffDocument } from '../../db/entities/staff.entity';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 
 @Injectable()
 export class StaffService {
   constructor(
-    @InjectRepository(Staff)
-    private readonly repo: Repository<Staff>,
+    @InjectModel(Staff.name)
+    private readonly model: Model<StaffDocument>,
   ) {}
   async create(input: CreateStaffDto) {
-    const result = await this.repo.save(input);
-    return result;
+    const newDoc = new this.model(input);
+    return newDoc.save();
   }
 
   findAll() {
-    return this.repo.find();
+    return this.model.find().exec();
   }
 
   findOne(id: string) {
-    return this.repo.findOne(id);
+    return this.model.findById(id).exec();
   }
 
   update(id: string, input: UpdateStaffDto) {
-    this.repo.update({ _id: id }, input);
-    return;
+    return this.model.findByIdAndUpdate(id, input).exec();
   }
 
   remove(id: string) {
-    return this.repo.delete({ _id: id });
+    return this.model.remove({ id }).exec();
   }
 }

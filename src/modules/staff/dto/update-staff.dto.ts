@@ -23,5 +23,5 @@ export class UpdateStaffDto {
   contact?: string;
 
   @ApiPropertyOptional({ type: 'string', description: 'clinic id' })
-  clinicId?: string;
+  clinic?: any;
 }

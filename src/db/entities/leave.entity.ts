@@ -2,22 +2,20 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../models/base';
 import { Staff } from './staff.entity';
 import { Duration } from '../models/duration';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-@Entity()
+@Schema()
 export class Leave extends BaseEntity {
-  @Column({ type: 'varchar', length: 300 })
+  @Prop({ type: 'string' })
   remark: string;
-
-  @Column({ type: 'varchar', length: 50 })
+  @Prop({ type: 'string' })
   status: string;
-
-  @Column({ type: 'string', name: 'staff_id', nullable: true })
-  staffId: string;
-
-  @ManyToOne(() => Staff, (staff) => staff.leaves)
-  @JoinColumn({ name: 'staff_id' })
-  staff: Staff | null;
-
-  @Column({ type: 'json', nullable: true })
+  @Prop({ type: 'String', ref: 'Staff' })
+  staff: Staff;
+  @Prop({ type: 'object' })
   duration: Duration;
 }
+
+export type LeaveDocument = Leave & Document;
+export const LeaveSchema = SchemaFactory.createForClass(Leave);

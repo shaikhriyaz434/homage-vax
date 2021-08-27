@@ -7,7 +7,7 @@ export class UpdateLeaveDto extends PartialType(CreateLeaveDto) {
   @ApiPropertyOptional({ type: 'string', description: 'remark' })
   remark?: string;
   @ApiPropertyOptional({ type: 'string', description: 'staff id' })
-  staffId?: string;
+  staff?: any;
   @ApiPropertyOptional({ type: 'string', description: 'status' })
   status?: string;
   @ApiPropertyOptional({ type: () => Duration, description: 'duration' })

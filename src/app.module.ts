@@ -7,19 +7,14 @@ import { LeaveModule } from './modules/leave/leave.module';
 import { SlotsModule } from './modules/slots/slots.module';
 import { PersonModule } from './modules/person/person.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      database: 'test',
-      username: 'postgres',
-      password: 'password',
-      entities: [__dirname + '/db/**/**.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    MongooseModule.forRoot(
+      // 'mongodb+srv://anil:D7i6tDeneve4gXum@book-cluster.an1wb.mongodb.net/test?retryWrites=true&w=majority',
+      'mongodb://localhost/test',
+    ),
     ClinicModule,
     StaffModule,
     LeaveModule,

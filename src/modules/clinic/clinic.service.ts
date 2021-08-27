@@ -1,36 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Clinic } from '../../db/entities/clinic.entity';
+import { Clinic, ClinicDocument } from '../../db/entities/clinic.entity';
 import { CreateClinicDto } from './dto/create-clinic.dto';
 import { UpdateClinicDto } from './dto/update-clinic.dto';
-import * as uuid from 'uuid';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ClinicService {
   constructor(
-    @InjectRepository(Clinic)
-    private readonly repo: Repository<Clinic>,
+    @InjectModel(Clinic.name)
+    private readonly model: Model<ClinicDocument>,
   ) {}
   async create(createClinicDto: CreateClinicDto) {
-    const result = await this.repo.save({ ...createClinicDto, _id: uuid.v4() });
-    return result;
+    const newClinic = new this.model(createClinicDto);
+    return newClinic.save();
   }
 
   findAll() {
-    return this.repo.find();
+    return this.model.find().exec();
   }
 
   findOne(id: string) {
-    return this.repo.findOne(id);
+    return this.model.findById(id).exec();
   }
 
   update(id: string, updateClinicDto: UpdateClinicDto) {
-    this.repo.update({ _id: id }, updateClinicDto);
-    return;
+    return this.model.findByIdAndUpdate(id, updateClinicDto);
   }
 
   remove(id: string) {
-    return this.repo.delete({ _id: id });
+    return this.model.remove({ id }).exec();
   }
 }
