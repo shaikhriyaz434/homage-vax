@@ -13,6 +13,8 @@ export class CreateClinicDto {
   address: Address;
   @ApiProperty({ type: 'string', description: 'Contact of the clinic' })
   contact: string;
+  @ApiProperty({ type: 'number', description: 'number doses avalable' })
+  capacity: number;
   @ApiProperty({
     type: () => OperatingHours,
     description: 'Operating hours of the clinic',

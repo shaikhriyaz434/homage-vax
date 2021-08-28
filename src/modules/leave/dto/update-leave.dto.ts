@@ -10,6 +10,11 @@ export class UpdateLeaveDto extends PartialType(CreateLeaveDto) {
   staff?: any;
   @ApiPropertyOptional({ type: 'string', description: 'status' })
   status?: string;
-  @ApiPropertyOptional({ type: () => Duration, description: 'duration' })
-  duration?: Duration;
+  @ApiPropertyOptional({
+    type: 'string',
+    description: 'Date  DD/MM/YYYY',
+  })
+  leaveDate?: string;
+  @ApiPropertyOptional({ type: 'string', description: 'clinic id' })
+  clinic?: any;
 }

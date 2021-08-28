@@ -6,8 +6,13 @@ export class CreateLeaveDto {
   remark: string;
   @ApiProperty({ type: 'string', description: 'staff id' })
   staff: string;
+  @ApiProperty({ type: 'string', description: 'clinic id' })
+  clinic: string;
   @ApiProperty({ type: 'string', description: 'status' })
   status: string;
-  @ApiProperty({ type: () => Duration, description: 'duration' })
-  duration: Duration;
+  @ApiProperty({
+    type: 'string',
+    description: 'Date  DD/MM/YYYY',
+  })
+  leaveDate: string;
 }

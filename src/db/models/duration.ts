@@ -1,4 +1,4 @@
 export class Duration {
-  start: number;
-  end: number;
+  start: string;
+  end: string;
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as mSchema } from 'mongoose';
+import { Document } from 'mongoose';
 import { Address } from '../models/address';
 import { BaseEntity } from '../models/base';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,6 +24,9 @@ export class Clinic extends BaseEntity {
 
   @Prop()
   operatingHours: OperatingHours;
+
+  @Prop({ type: 'Number' })
+  capacity: number;
 
   @Prop({ type: [{ type: 'String', ref: 'Staff' }] })
   staff: Staff[];

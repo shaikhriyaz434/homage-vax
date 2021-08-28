@@ -5,7 +5,7 @@ import { BaseEntity } from '../models/base';
 import { Slot } from './slot.entity';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ collection: 'person' })
 export class Person extends BaseEntity {
   @Prop()
   name: string;

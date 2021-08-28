@@ -21,4 +21,7 @@ export class UpdateClinicDto {
     description: 'Operating hours of the clinic',
   })
   operatingHours?: OperatingHours;
+
+  @ApiPropertyOptional({ type: 'number', description: 'number doses avalable' })
+  capacity?: number;
 }

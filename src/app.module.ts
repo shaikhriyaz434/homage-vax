@@ -11,10 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      // 'mongodb+srv://anil:D7i6tDeneve4gXum@book-cluster.an1wb.mongodb.net/test?retryWrites=true&w=majority',
-      'mongodb://localhost/test',
-    ),
+    MongooseModule.forRoot('mongodb://localhost/test'),
     ClinicModule,
     StaffModule,
     LeaveModule,

@@ -10,6 +10,7 @@ import {
 import { SlotsService } from './slots.service';
 import { CreateSlotDto } from './dto/create-slot.dto';
 import { UpdateSlotDto } from './dto/update-slot.dto';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('slots')
 export class SlotsController {
@@ -20,6 +21,11 @@ export class SlotsController {
     return this.slotsService.create(createSlotDto);
   }
 
+  @Post('/space')
+  @ApiBody({ type: Object })
+  createSpace(@Body() input: any) {
+    return this.slotsService.createSpace(input);
+  }
   @Get()
   findAll() {
     return this.slotsService.findAll();

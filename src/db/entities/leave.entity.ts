@@ -1,9 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../models/base';
 import { Staff } from './staff.entity';
-import { Duration } from '../models/duration';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Clinic } from './clinic.entity';
 
 @Schema()
 export class Leave extends BaseEntity {
@@ -13,8 +12,12 @@ export class Leave extends BaseEntity {
   status: string;
   @Prop({ type: 'String', ref: 'Staff' })
   staff: Staff;
-  @Prop({ type: 'object' })
-  duration: Duration;
+
+  @Prop({ type: 'String', ref: 'Clinic' })
+  clinic: Clinic;
+
+  @Prop({ type: 'string' })
+  leaveDate: string;
 }
 
 export type LeaveDocument = Leave & Document;

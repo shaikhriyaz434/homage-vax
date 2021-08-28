@@ -8,8 +8,13 @@ export class UpdateSlotDto {
   person?: string;
   @ApiPropertyOptional({ type: 'string', description: 'status' })
   status?: string;
-  @ApiPropertyOptional({ type: () => Duration, description: 'duration' })
-  duration?: Duration;
+  @ApiPropertyOptional({ type: 'string', description: 'time space of slot' })
+  space?: string;
   @ApiPropertyOptional({ type: 'string', description: 'clinic id' })
   clinic?: any;
+  @ApiPropertyOptional({
+    type: 'string',
+    description: 'Date of slot booked DD/MM/YYYY',
+  })
+  slotDate?: string;
 }
