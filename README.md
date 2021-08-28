@@ -21,6 +21,11 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## openAPI specification also available 
+```bash
+  go to localhost:3000/api-docs
+```
+
 
 ## Test
 
